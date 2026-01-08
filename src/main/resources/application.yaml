@@ -1,0 +1,21 @@
+server:
+  error:
+    include-stacktrace: never
+
+spring:
+  application:
+    name: projeto
+  datasource:
+    url: jdbc:postgresql://localhost:5432/easy_pay_prod
+    username: postgres
+    password: senha123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
