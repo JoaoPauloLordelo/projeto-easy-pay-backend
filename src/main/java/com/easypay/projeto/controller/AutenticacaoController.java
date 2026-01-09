@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.easypay.projeto.dto.loginAutenticacaoDTO;
+import com.easypay.projeto.models.User;
+import com.easypay.projeto.services.TokenService;
 
 import jakarta.validation.Valid;
 
@@ -23,10 +25,13 @@ public class AutenticacaoController {
     @Autowired 
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity realizarLogin(@RequestBody @Valid loginAutenticacaoDTO dados){
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         Authentication authentication = manager.authenticate(token);
-        return ResponseEntity.ok().build();
+        return tokenService.criarToken((User) authentication.getPrincipal());
     }
 }
